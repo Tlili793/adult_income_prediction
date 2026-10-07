@@ -3,7 +3,7 @@
 This project builds a machine-learning pipeline to predict whether an individual's
 annual income exceeds **$50,000** based on demographic, professional, and financial
 features from the **UCI Adult dataset**. The primary artifact is the Jupyter
-notebook `adult (7).ipynb`, which walks through the full workflow from data
+notebook `adult.ipynb`, which walks through the full workflow from data
 understanding to model training, evaluation, and saving.
 
 ## Machine Learning Problem
@@ -154,8 +154,8 @@ Scikit-learn `Pipeline` + `ColumnTransformer`:
 |:--------------------|-------------:|--------------:|--------:|
 | **XGBoost**         |     **0.9292** |      **0.8737** |  **0.7093** |
 | Gradient Boosting   |       0.9217 |        0.8677 |   0.6870 |
-| Logistic Regression |       0.8937 |        0.7956 |   0.6658 |
 | Random Forest       |       0.8888 |        0.8375 |   0.6547 |
+| Logistic Regression |       0.8937 |        0.7956 |   0.6658 |
 
 > A reference hold-out Random Forest run reported ROC-AUC ≈ 0.8886 with ~84%
 > accuracy.
@@ -166,13 +166,14 @@ Variants test dropping highly-associated features:
 
 | Variant                         | Num Features | Mean ROC-AUC | Mean Accuracy | Mean F1 |
 |:--------------------------------|-------------:|-------------:|--------------:|--------:|
-| Model A (All Features)          |   13         |  **0.9292** |    **0.8737** |  **0.7093** |
-| Model B (Remove relationship)   |      12      |       0.9291 |          0.8743 |   0.7101 |
+| Model B (Remove relationship)   |      12      |       0.9291 |      **0.8743** |   **0.7101** |
+| Model A (All Features)          |   13         |  **0.9292** |          0.8737 |   0.7093 |
 | Model D (Remove sex)            |      12      |       0.9288 |          0.8735 |   0.7083 |
 | Model C (Remove marital-status) |      12      |       0.9285 |          0.8733 |   0.7082 |
 
-Keeping all features (**Model A**) performs best while remaining near-identical to
-the most competitive reduced variant (Model B).
+The trade-off is near-negligible and metric-dependent: **Model A** (all features)
+leads on ROC-AUC, while **Model B** (dropping `relationship`) posts the highest
+accuracy and F1.
 
 ### Unsupervised & PCA Branches
 
@@ -210,7 +211,7 @@ pip install ucimlrepo pandas numpy scikit-learn xgboost matplotlib seaborn scipy
 
 ## How to Run
 
-Open `adult (7).ipynb` in Jupyter (or Colab) and run cells top-to-bottom:
+Open `adult.ipynb` in Jupyter (or Colab) and run cells top-to-bottom:
 
 1. The `ucimlrepo` fetch loads the dataset (an internet connection is needed).
 2. Executing the notebook reproduces the EDA, preprocessing, feature engineering,
@@ -220,10 +221,6 @@ Open `adult (7).ipynb` in Jupyter (or Colab) and run cells top-to-bottom:
 
 ```
 jupyter/
-├── adult (7).ipynb              # Main project notebook (EDA → modeling)
-├── adult_3_clear_structure.ipynb# Restructured variant following KDD phases
-├── best_adult_model.pkl         # Saved pipeline
-├── best_adult_xgboost_model.pkl # Best XGBoost pipeline (Model A)
-├── garbage/                     # Archived/scratch notebooks & CSV exports
-└── pca/                         # Separate PCA (ACP) cybersecurity notebook
+├── adult.ipynb                  # Main project notebook (EDA → modeling)
+├── best_adult_model.pkl         # Saved 
 ```
